@@ -7,14 +7,6 @@ const urlsToCache = [
 
 self.addEventListener('install', function(e) {
   console.log('[ServiceWorker] Install');
-  //インストール処理
-　e.waitUntill(
-    caches.open(CACHE_NAME)
-      .then(function(cache) {
-        console.log('Opened cache');
-        return cache.addAll(urlsToCache);
-      })
-  );
 });
 
 self.addEventListener('activate', function(e) {
@@ -22,15 +14,4 @@ self.addEventListener('activate', function(e) {
 });
 
 self.addEventListener('fetch', function(event) {
-  event.respondWith(
-    caches.match(event.request)
-      .then(function(response) {
-        //キャッシュがあったのでそのレスポンスを返す
-        if(response) {
-          return response;
-        }
-        return fetch(event.request);
-      }
-    )
-  );
 });

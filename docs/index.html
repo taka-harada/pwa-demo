@@ -2,20 +2,16 @@
 <html>
   <head>
     <title>Hello PWA</title>
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="./manifest.json">
     <script>
+      // service workerが有効なら、serviceworkerを登録
       if('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js')
+        navigator.serviceWorker.register('./sw.js')
           .then(
-            function(registration){
-              if(typeof registration.update == 'function') {
-                registration.update();
-              }
+            function(){
+              console.log('Service Worker Registered');
             }
-          )
-          .catch(function (error) {
-            console.log("Error Log: " + error);
-          });
+          );
       }
     </script>
   </head>
