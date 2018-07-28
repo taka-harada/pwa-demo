@@ -4,23 +4,19 @@
     <title>Hello PWA</title>
     <link rel="manifest" href="manifest.json">
     <script>
-    window.addEventListener('load', function() {
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js')
+      if('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js')
           .then(
-            function(registration) {
-              //登録成功
-              console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            function(registration){
+              if(typeof registration.update == 'function') {
+                registration.update();
+              }
             }
           )
-          .catch(
-            function(err) {
-              //登録失敗 :(
-              console.log('ServiceWorker registration failed: ', err);
-            }
-          );
+          .catch(function (error) {
+            console.log("Error Log: " + error);
+          });
       }
-    });
     </script>
   </head>
 
