@@ -3,17 +3,17 @@
   "short_name": "PWA",
   "icons": [
     {
-      "src": "icons144x144.png",
+      "src": "./icons144x144.png",
       "type": "image/png",
       "sizes": "144x144"
     },
     {
-      "src": "icons192x192.png",
+      "src": "./icons192x192.png",
       "type": "image/png",
       "sizes": "192x192"
     }
   ],
-  "start_url": "https://taka-harada.github.io/pwa-demo/index.html",
+  "start_url": "./?utm_source=homescreen",
   "display": "standalone",
   "background_color": "#2196F3",
   "theme_color": "#696969"

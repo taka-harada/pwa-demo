@@ -3,18 +3,22 @@ const CACHE_NAME = 'my-site-cache-v1';
 // キャッシュするリソースを配列に格納
 const urlsToCache = [
   '/',
-  '/style.css',
 ];
 
-self.addEventListener('install', function(event) {
+self.addEventListener('install', function(e) {
+  console.log('[ServiceWorker] Install');
   //インストール処理
-　event.waitUntill(
+　e.waitUntill(
     caches.open(CACHE_NAME)
       .then(function(cache) {
         console.log('Opened cache');
         return cache.addAll(urlsToCache);
       })
   );
+});
+
+self.addEventListener('activate', function(e) {
+  console.log('[ServiceWorker] Activate');
 });
 
 self.addEventListener('fetch', function(event) {
