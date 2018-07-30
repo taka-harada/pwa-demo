@@ -3,7 +3,11 @@
   <head>
     <title>Hello PWA</title>
     <link rel="manifest" href="./manifest.json">
-    <script>
+  </head>
+
+  <body>
+    <p>update PWA</p>
+    <script type="application/javascript">
       // service workerが有効なら、serviceworkerを登録
       if('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./sw.js')
@@ -14,10 +18,6 @@
           );
       }
     </script>
-  </head>
-
-  <body>
-    <p>update PWA</p>
   </body>
 
 </html>
