@@ -31,7 +31,7 @@ self.addEventListener('activate', function(e) {
           return caches.delete(key);
         }
       }));
-    });
+    })
   );
   return self.clients.claim();
 });
