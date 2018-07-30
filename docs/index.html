@@ -7,16 +7,45 @@
 
   <body>
     <p>update PWA ver.2</p>
+    <div id="save_button" style="font-size: 100px; background-color: #eeeeee; text-align: center; display: block; margin: 0 auto; padding: 20px;">Register</div>
     <script type="application/javascript">
       // service workerが有効なら、serviceworkerを登録
       if('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./sw.js')
-          .then(
-            function(){
+          .then(function(){
               console.log('Service Worker Registered');
-            }
-          );
+          });
       }
+
+      var saveButton = document.getElementById('save_button');
+      var deferredPrompt;
+
+      //　アプリインストールバナーが表示される直前で処理を中断
+      window.addEventListener('beforeinstallprompt', function(event) {
+        console.log('インストールバナーの表示をキャンセルします');
+        event.preventDefault();
+        deferredPrompt = event;
+        return false;
+      });
+
+      saveButton.addEventListener('click', function() {
+        if (deferredPrompt !== undefined) {
+          deferredPrompt.prompt();
+          deferredPrompt.userChoice.then(function(choiceResult) {
+            console.log(choiceResult.outcome);
+
+            if (choiceResult.outcome == 'dismissed'){
+              console.log('キャンセルされました');
+            } else {
+              console.log('インストールされました');
+            }
+
+            deferredPrompt = null;
+            //saveButton.addAttribute('dismissed');
+          });
+        }
+      });
+
     </script>
   </body>
 

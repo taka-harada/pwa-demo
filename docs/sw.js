@@ -7,6 +7,7 @@ const filesToCache = [
   '/index.html'
 ];
 
+// Install
 self.addEventListener('install', function(e) {
   console.log('ServiceWorker Installing');
 
@@ -20,6 +21,7 @@ self.addEventListener('install', function(e) {
   );
 });
 
+// Activate
 self.addEventListener('activate', function(e) {
   console.log('ServiceWorker Activating');
   e.waitUntil(
@@ -33,16 +35,17 @@ self.addEventListener('activate', function(e) {
       }));
     })
   );
-  return self.clients.claim();
+  //return self.clients.claim();
 });
 
+// Fetch
 self.addEventListener('fetch', function(e) {
-  console.log('Service Worker fetching', event.request.url);
+  console.log('Service Worker fetching', e.request.url);
 
-  event.respondWith(
+  e.respondWith(
     //リクエストされたファイルがキャッシュに含まれていれば、キャッシュから取り出す
-    caches.match(event.request).then(function(response) {
-      return response || fetch(event.request);
+    caches.match(e.request).then(function(response) {
+      return response || fetch(e.request);
     })
   );
 });
