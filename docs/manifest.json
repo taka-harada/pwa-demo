@@ -16,5 +16,6 @@
     }
   ],
   "start_url": "./?utm_source=homescreen",
-  "display": "standalone"
+  "display": "standalone",
+  "gcm_sender_id": "358873937077"
 }

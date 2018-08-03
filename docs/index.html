@@ -9,7 +9,7 @@
     <p>update PWA ver.2</p>
     <div id="save_button" style="font-size: 100px; background-color: #eeeeee; text-align: center; display: block; margin: 0 auto; padding: 20px;">Register</div>
     <script type="application/javascript">
-      // service workerが有効なら、serviceworkerを登録
+    // service workerが有効なら、serviceworkerを登録
       if('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./sw.js')
           .then(function(){
@@ -44,6 +44,27 @@
           });
         }
       });
+
+      // ブラウザが通知をサポートしているか確認する
+      if (!('Notification' in window)) {
+        alert('未対応のブラウザです');
+      } else {
+        // 許可を求める
+        Notification.requestPermission()
+          .then((permission) => {
+            if (permission == 'granted') {
+              // 許可
+              alert('すでに「許可」に設定されています');
+            } else if (permission == 'denied') {
+              // 拒否
+              alert('すでに「拒否」に設定されています');
+            } else if (permission == 'default') {
+              // まだ通知の設定をしていない
+              // 通知許可のポップアップを表示
+              Notification.requestPermission();
+            }
+          });
+      }
 
     </script>
   </body>
