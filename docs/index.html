@@ -3,68 +3,36 @@
   <head>
     <title>Hello PWA</title>
     <link rel="manifest" href="./manifest.json">
+    <link rel='stylesheet'  href='./demo.css' type='text/css' media='all' />
   </head>
 
   <body>
-    <p>update PWA ver.2</p>
-    <div id="save_button" style="font-size: 100px; background-color: #eeeeee; text-align: center; display: block; margin: 0 auto; padding: 20px;">Register</div>
+    <div class="outer">
+      <p>update PWA ver.2</p>
+      <div id="save_button" style="font-size: 100px; background-color: #eeeeee; text-align: center; display: block; margin: 0 auto; padding: 20px;">Register</div>
+      <div id="log">scrollTop:0</div>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/3.4.1/firebase.js"></script>
     <script type="application/javascript">
+    // FCMの設定
+    var config = {
+      apiKey: "",
+      authDomain: "",
+      databaseURL: "",
+      storageBucket: "",
+      messagingSenderId: ""
+    };
+
     // service workerが有効なら、serviceworkerを登録
       if('serviceWorker' in navigator) {
+        console.log('Service Worker is supported');
         navigator.serviceWorker.register('./sw.js')
           .then(function(){
               console.log('Service Worker Registered');
           });
       }
-      var saveButton = document.getElementById('save_button');
-      var deferredPrompt;
 
-      //　アプリインストールバナーが表示される直前で処理を中断
-      window.addEventListener('beforeinstallprompt', function(event) {
-        console.log('インストールバナーの表示をキャンセルします');
-        event.preventDefault();
-        deferredPrompt = event;
-        return false;
-      });
 
-      saveButton.addEventListener('click', function() {
-        if (deferredPrompt !== undefined) {
-          deferredPrompt.prompt();
-          deferredPrompt.userChoice.then(function(choiceResult) {
-            console.log(choiceResult.outcome);
-
-            if (choiceResult.outcome == 'dismissed'){
-              console.log('キャンセルされました');
-            } else {
-              console.log('インストールされました');
-            }
-
-            deferredPrompt = null;
-            //saveButton.addAttribute('dismissed');
-          });
-        }
-      });
-
-      // ブラウザが通知をサポートしているか確認する
-      if (!('Notification' in window)) {
-        alert('未対応のブラウザです');
-      } else {
-        // 許可を求める
-        Notification.requestPermission()
-          .then((permission) => {
-            if (permission == 'granted') {
-              // 許可
-              alert('すでに「許可」に設定されています');
-            } else if (permission == 'denied') {
-              // 拒否
-              alert('すでに「拒否」に設定されています');
-            } else if (permission == 'default') {
-              // まだ通知の設定をしていない
-              // 通知許可のポップアップを表示
-              Notification.requestPermission();
-            }
-          });
-      }
 
     </script>
   </body>

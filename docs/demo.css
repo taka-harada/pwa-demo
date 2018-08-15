@@ -1,0 +1,14 @@
+.outer{
+  height:5000px;
+}
+
+#log{
+  width:100%;
+  background:#01579B;
+  position: fixed;
+  top:300px;
+  left:10px;
+  color:#FFF;
+  padding:10px;
+  text-align: center;
+}
